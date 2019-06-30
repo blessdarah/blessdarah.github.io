@@ -1,0 +1,109 @@
+@import "./assets/bootstrap.min.css";
+@import "./assets/font-awesome.min.css";
+:root {
+    --btn-height: 30px;
+    --green: #B4BF0F;
+    --green-border: #9AA40A;
+}
+
+body {
+    color: #707070;
+}
+
+.active {
+    font-weight: 500;
+    color: var(--green);
+}
+
+.nav-link {
+    font-weight: bold;
+}
+
+.card-body {
+    color: #0707070;
+    background-color: #E8EF7E;
+}
+
+.card-body1 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+.card {
+    /* horizontal-align: middle; */
+    /* align-self: center; */
+}
+
+.btn {
+    height: var(--btn-height);
+    border-radius: calc(var(--btn-height) / 2);
+    background: var(--green);
+    border: 1px solid var(--green-border);
+    transition: all 200ms ease-in-out;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+form > input.form-control {
+    height: var(--btn-height) !important;
+    border-radius: 4px;
+    font-size: .8em;
+}
+
+.contact-form {
+    border: 1px solid var(--green);
+    height: 70vh;
+    margin: 30px auto;
+    border-radius: 4px;
+}
+
+.left, .right {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.right {
+    padding: 20px 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right img {
+    width: 7rem;
+    height: 7rem;
+    margin: 0 auto 50px;
+}
+
+@media screen and (max-width: 678px) {
+    .contact-form {
+        height: auto;
+        display: block;
+        position: relative;
+        padding-top: 80px;  
+        margin-top: 100px;      
+    }
+
+    .left {
+        display: none;
+    }
+
+    .right img {
+        position: absolute;
+        top: -3.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 50px;
+    }
+
+    .right {
+        display: block;
+        padding: 10px;
+        width: 100%;
+    }
+
+}
+

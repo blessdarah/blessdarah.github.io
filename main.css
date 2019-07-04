@@ -10,28 +10,11 @@ body {
     color: #707070;
 }
 
-.active {
-    font-weight: 500;
+.nav-link {
+    font-weight: bold;
     color: var(--green);
 }
 
-.nav-link {
-    font-weight: bold;
-}
-
-.card-body {
-    color: #0707070;
-    background-color: #E8EF7E;
-}
-
-.card-body1 {
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-}
-
-.card {
-    /* horizontal-align: middle; */
-    /* align-self: center; */
-}
 
 .btn {
     height: var(--btn-height);
@@ -71,4 +54,12 @@ header {
     background: white;
     border-bottom: 1px solid var(--green);
     z-index: 100;
+}
+
+header .btn {
+    color: white !important;
+    line-height: 10px;
+    font-weight: normal;
+    margin-top: 7px;
+    margin-left: 15px;  
 }

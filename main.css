@@ -53,57 +53,22 @@ form > input.form-control {
 }
 
 .contact-form {
-    border: 1px solid var(--green);
-    height: 70vh;
-    margin: 30px auto;
-    border-radius: 4px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 5%;
 }
 
-.left, .right {
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
+.contact-form iframe {
+    margin: 0 auto;
+    width: 100%;
+    border: none;
+    height: 100vh;
 }
 
-.right {
-    padding: 20px 8%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+header {
+    position: sticky;
+    top: 0;
+    background: white;
+    border-bottom: 1px solid var(--green);
+    z-index: 100;
 }
-
-.right img {
-    width: 7rem;
-    height: 7rem;
-    margin: 0 auto 50px;
-}
-
-@media screen and (max-width: 678px) {
-    .contact-form {
-        height: auto;
-        display: block;
-        position: relative;
-        padding-top: 80px;  
-        margin-top: 100px;      
-    }
-
-    .left {
-        display: none;
-    }
-
-    .right img {
-        position: absolute;
-        top: -3.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-bottom: 50px;
-    }
-
-    .right {
-        display: block;
-        padding: 10px;
-        width: 100%;
-    }
-
-}
-

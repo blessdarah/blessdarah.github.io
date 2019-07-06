@@ -83,13 +83,6 @@ header .btn {
     }
 
     .navbar-nav .nav-link {
-        text-align: right !important;
-    }
-
-    .navbar-nav .btn {
-        display: block;
-        width: 50%;
-        margin-left: auto;
         text-align: center;
     }
 }

@@ -10,6 +10,19 @@ body {
     color: #707070;
 }
 
+ul {
+    list-style-type: none;
+}
+
+.contact li span{
+    font-weight: bold;
+}
+
+.contact li a {
+    color: var(--green);
+    text-decoration: underline;
+}
+
 .nav-link {
     font-weight: bold;
     color: var(--green);
@@ -61,5 +74,23 @@ header .btn {
     line-height: 10px;
     font-weight: normal;
     margin-top: 7px;
-    margin-left: 15px;  
+    margin-left: 10px;  
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        background: #f8f8f8;
+    }
+
+    .navbar-nav .nav-link {
+        text-align: right !important;
+    }
+
+    .navbar-nav .btn {
+        display: block;
+        width: 50%;
+        color: black;
+        margin-left: auto;
+        text-align: center;
+    }
 }

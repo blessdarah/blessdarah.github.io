@@ -1,88 +1,55 @@
 @import "./assets/bootstrap.min.css";
-@import "./assets/font-awesome.min.css";
+
 :root {
     --btn-height: 30px;
     --green: #B4BF0F;
     --green-border: #9AA40A;
+    --gotham: 'Gotham rounded';
 }
 
 body {
     color: #707070;
+    font-family: var(--gotham);
+    line-height: 1.5;
+}
+
+.jumbotron {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background: url('images/white-keyboard.jpg') no-repeat left top;
+    background-size: cover;
+}
+
+.jumbotron .content {
+    /*background: rgba(255, 255, 255, 0.5);*/
+    padding: 20px 0;
+}
+
+.jumbotron p {
+    text-shadow: 0 0 1px rgba(0,0,0,0.3);
+}
+
+.services {
+    padding: 100px 0;
+}
+
+h3.card-text {
+    font-size: 1.2rem;
 }
 
 ul {
     list-style-type: none;
+    font-weight: lighter;
 }
 
-.contact li span{
-    font-weight: bold;
+p {
+    font-weight: lighter;
 }
 
-.contact li a {
-    color: var(--green);
-    text-decoration: underline;
-}
-
-.nav-link {
-    font-weight: bold;
-    color: var(--green);
+#portfolio .card img {
+    height: 300px;
+    object-fit: cover;
 }
 
 
-.btn {
-    height: var(--btn-height);
-    border-radius: calc(var(--btn-height) / 2);
-    background: var(--green);
-    border: 1px solid var(--green-border);
-    transition: all 200ms ease-in-out;
-    color: white;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-
-form > input.form-control {
-    height: var(--btn-height) !important;
-    border-radius: 4px;
-    font-size: .8em;
-}
-
-.contact-form {
-    width: 90%;
-    margin: 0 auto;
-    padding: 5%;
-}
-
-.contact-form iframe {
-    margin: 0 auto;
-    width: 100%;
-    border: none;
-    height: 100vh;
-}
-
-header {
-    position: sticky;
-    top: 0;
-    background: white;
-    border-bottom: 1px solid var(--green);
-    z-index: 100;
-}
-
-header .btn {
-    color: white !important;
-    line-height: 10px;
-    font-weight: normal;
-    margin-top: 7px;
-    margin-left: 10px;  
-}
-
-@media screen and (max-width: 500px) {
-    header {
-        background: #f8f8f8;
-    }
-
-    .navbar-nav .nav-link {
-        text-align: center;
-    }
-}

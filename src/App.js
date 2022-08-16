@@ -1,15 +1,19 @@
 import React from 'react';
-import { AppHeader, Intro, Skills, Team, JoinUs } from './components'
+import { Routes, Route } from 'react-router-dom';
+import { ROUTES } from './routes';
+import { BlogDetailPage, BlogPage, BootcampPage, HomePage, LoginPage, ServicePage, SignUpPage } from './pages'
 
 const App = () => {
     return (
-        <>
-            <AppHeader />
-            <Intro />
-            <Skills />
-            <Team />
-            <JoinUs />
-        </>
+        <Routes>
+            <Route path={ROUTES.HOME} element={<HomePage />} />
+            <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
+            <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={ROUTES.BOOTCAMP} element={<BootcampPage />} />
+            <Route path={ROUTES.SERVICES} element={<ServicePage />} />
+            <Route exact path={ROUTES.BLOG_SHOW} element={<BlogDetailPage />} />
+            <Route exact  path={ROUTES.BLOG} element={<BlogPage />} />
+        </Routes>
     )
 }
 export default App;

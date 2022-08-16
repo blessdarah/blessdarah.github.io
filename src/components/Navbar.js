@@ -5,6 +5,7 @@ import NavLinks from "./NavLinks"
 
 const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
+
     return (
         <div className="relative z-50 w-full h-24">
             <div className="container flex items-center justify-center h-full max-w-6xl px-8 mx-auto sm:justify-between xl:px-0">

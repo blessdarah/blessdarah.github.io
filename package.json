@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "source": "index.html",
+  "homepage": "https://blessdarah.github.io/blessdarah.github.io",
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
+    "predeploy": "npm run build", 
+    "deploy": "gh-pages -d build", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +34,7 @@
     "@babel/preset-react": "^7.18.6",
     "@tailwindcss/typography": "^0.5.4",
     "autoprefixer": "^10.4.8",
+    "gh-pages": "^4.0.0",
     "parcel": "^2.7.0",
     "postcss": "^8.4.16",
     "process": "^0.11.10",

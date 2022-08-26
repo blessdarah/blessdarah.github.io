@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "source": "index.html",
-  "homepage": "https://blessdarah.github.io/blessdarah.github.io",
+  "homepage": "https://github.com/blessdarah/blessdarah.github.io#readme",
   "scripts": {
     "start": "parcel",
     "build": "parcel build",
-    "predeploy": "npm run build", 
-    "deploy": "gh-pages -d build", 
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,13 +21,14 @@
   "bugs": {
     "url": "https://github.com/blessdarah/blessdarah.github.io/issues"
   },
-  "homepage": "https://github.com/blessdarah/blessdarah.github.io#readme",
   "dependencies": {
     "@supabase/supabase-js": "^1.35.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.34.2",
     "react-router": "^6.3.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "recoil": "^0.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

@@ -1,7 +1,29 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { AppShell } from "../components"
+import { ROUTES } from "../routes";
+import { supabase } from "../supabaseClient"
 
 const SignUpPage = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = async (data) => {
+        console.log('data: ', data);
+        return;
+        let { user, error } = await supabase.auth.signUp({
+            email: data.email,
+            password: data.password
+        });
+
+        if (error) {
+            console.log('auth error: ', error);
+        } else {
+            console.log('login successful');
+            console.log('user: ', user);
+        }
+
+    }
     return (
         <AppShell>
             <section className="py-20 bg-gray-50">
@@ -20,26 +42,42 @@ const SignUpPage = () => {
                             <div className="max-w-sm mx-auto lg:mr-0 lg:ml-auto">
                                 <div className="overflow-hidden text-center bg-white rounded-md shadow-sm">
                                     <div className="px-6 py-8">
-                                        <form onsubmit="event.preventDefault();">
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                            {
+                                                errors.length > 0 && (
+                                                    <div className="bg-red-300 border border-red-500 rounded my-2 p-2">
+                                                        <p className="">errors.email.?message</p>
+                                                        <p>errors.password.?message</p>
+                                                        <p>errors.firstName.?message</p>
+                                                        <p>errors.lastName.?message</p>
+                                                    </div>
+                                                )
+                                            }
                                             <div className="mb-6">
                                                 <span className="text-sm text-gray-300">Fill out your info below to</span>
                                                 <h4 className="text-2xl font-semibold text-gray-700">Create your account</h4>
                                             </div>
                                             <div className="flex flex-wrap mb-4 -mx-2">
                                                 <div className="w-full px-2 mb-4 lg:mb-0 lg:w-1/2">
-                                                    <input className="py-2.5 px-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="text" placeholder="First Name" />
+                                                    <input className="py-2.5 px-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="text" placeholder="First Name" {...register('firstName', { required: true })} />
+                                                    {errors.firstName && <span className="block text-left text-red-400 text-xs py-1">First name is required</span>}
                                                 </div>
                                                 <div className="w-full px-2 lg:w-1/2">
-                                                    <input className="py-2.5 px-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="text" placeholder="Last Name" />
+                                                    <input className="py-2.5 px-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="text" placeholder="Last Name" {...register('lastName', { required: true })} />
+                                                    {errors.lastName && <span className="text-red-400 text-xs text-left block py-1">Last name is required</span>}
                                                 </div>
                                             </div>
-                                            <input className="py-2.5 px-4 mb-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="email" placeholder="Email address" />
-                                            <input className="py-2.5 px-4 mb-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="password" placeholder="Enter your password" />
-                                            <button className="w-full py-3 mb-4 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-500">Sign Up</button>
+
+                                            <input className="py-2.5 px-4 mb-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="email" placeholder="Email address" {...register('email', { required: true })} />
+
+                                            <input className="py-2.5 px-4 mb-4 w-full bg-gray-50 border focus:ring-2 focus:ring-opacity-90 focus:ring-indigo-500 border-gray-100 rounded focus:outline-none" type="password" placeholder="Enter your password" {...register('password', { required: true, minLength: 6 })} />
+                                            {errors.password && <span className="block text-left mb-4 text-red-400 text-xs py-1">Your password must be at least 6 chars long</span>}
+
+                                            <button type="submit" className="w-full py-3 mb-4 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-500">Sign Up</button>
                                         </form>
                                         <p className="text-xs text-gray-400">
-                                            <span>Already have an account?</span>
-                                            <a className="text-indigo-500" href="#">Sign In</a>
+                                            <span>Already have an account? </span>
+                                            <Link className="text-indigo-500" to={ROUTES.LOGIN}>Sign In</Link>
                                         </p>
                                     </div>
                                     <div className="py-2 text-xs font-medium text-gray-300 border-t border-gray-100 bg-gray-50">By signing up, you agree to our <a href="#_" className="text-indigo-400 underline">Terms of Service</a></div>

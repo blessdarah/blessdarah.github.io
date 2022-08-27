@@ -5,12 +5,16 @@ import JoinUs from './JoinUs';
 import Header from './Header';
 import NavLinks from './NavLinks'
 import Footer from './Footer'
-import AppShell from './AppShell'
+import AppShell from './layout/AppShell'
+import DashboardContainer from './layout/DashboardContainer'
 import ServiceCard from './ServiceCard'
 
 export {
-    /* Common components */
+    /* Lyout components */
     AppShell,
+    DashboardContainer,
+
+    /* Common components */
     NavLinks,
     Hero,
     Header,

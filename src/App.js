@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ROUTES } from './routes';
-import { BlogDetailPage, BlogPage, BootcampPage, HomePage, LoginPage, ServicePage, SignUpPage } from './pages'
+import { BlogDetailPage, BlogPage, BootcampPage, DashboardPage, HomePage, LoginPage, ServicePage, SignUpPage } from './pages'
 
 const App = () => {
     return (
@@ -13,6 +13,9 @@ const App = () => {
             <Route path={ROUTES.SERVICES} element={<ServicePage />} />
             <Route exact path={ROUTES.BLOG_SHOW} element={<BlogDetailPage />} />
             <Route exact  path={ROUTES.BLOG} element={<BlogPage />} />
+
+            {/* Admin routes */}
+            <Route exact  path={ROUTES.ADMIN.DASHBOARD} element={<DashboardPage />} />
         </Routes>
     )
 }

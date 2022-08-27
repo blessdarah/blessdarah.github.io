@@ -7,5 +7,9 @@ export const ROUTES = {
     CONTACT: '/contact',
     BOOTCAMP: '/frontend-developer-bootcamp',
     LOGIN: '/login',
-    SIGN_UP: '/signup'
+    SIGN_UP: '/signup',
+    ADMIN: {
+        DASHBOARD: '/dashboard',
+        PROFILE: '/profile'
+    }
 }

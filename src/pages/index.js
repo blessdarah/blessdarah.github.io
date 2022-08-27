@@ -5,6 +5,7 @@ import BootcampPage from './BootcampPage'
 import ServicePage from './ServicePage'
 import BlogPage from './BlogPage'
 import BlogDetailPage from './BlogDetailPage'
+import DashboardPage from './admin/DashboardPage'
 
 export {
     HomePage,
@@ -14,4 +15,7 @@ export {
     BlogPage,
     ServicePage,
     BlogDetailPage,
+
+    /* Admin pages */
+    DashboardPage,
 }

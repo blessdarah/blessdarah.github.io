@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppShell } from "../components"
 import { ROUTES } from "../routes";
 import { supabase } from "../supabaseClient";
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const login = async (data) => {
-        let { user, error } = await supabase.auth.signInWithPassword({
+        let { user, error } = await supabase.auth.signIn({
             email: data.email,
             password: data.password
         });
 
         if (error) {
-            console.log('error: ', error);
+            setErrorMessage(error.message);
             return;
         }
 
         if (user) {
-            console.log('user: ', user);
+            setErrorMessage('');
+            navigate(ROUTES.ADMIN.DASHBOARD);
         }
     }
 
@@ -44,9 +47,9 @@ const LoginPage = () => {
                                     <div className="px-6 py-8">
                                         <form onSubmit={handleSubmit(login)}>
                                             {
-                                                errors &&
-                                                <div>
-                                                    {errors.message}
+                                                errorMessage &&
+                                                <div className="border border-red-300 bg-red-100 text-red-400 text-xs p-2 rounded mb-2">
+                                                    {errorMessage}
                                                 </div>
                                             }
                                             <div className="mb-6">

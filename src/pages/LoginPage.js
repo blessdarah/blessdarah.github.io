@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { AppShell } from "../components"
 import { ROUTES } from "../routes";
 import { supabase } from "../supabaseClient";
+import { userState } from "../recoil/atoms"
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('');
+    const [appUser, setAppUser] = useRecoilState(userState);
     const navigate = useNavigate();
 
     const login = async (data) => {
@@ -23,7 +26,23 @@ const LoginPage = () => {
 
         if (user) {
             setErrorMessage('');
-            navigate(ROUTES.ADMIN.DASHBOARD);
+            const { data, error } = await supabase.from('user_data').select().match({ code: user.id });
+            if (error) {
+                setErrorMessage(error.message);
+                return;
+            }
+
+            if (data) {
+                const appUser = {
+                    ...user,
+                    firstName: data.firstName,
+                    lastName: data.lastName
+                };
+
+                setAppUser(appUser);
+                navigate(ROUTES.ADMIN.DASHBOARD);
+            }
+            setErrorMessage('cannot find user information...');
         }
     }
 

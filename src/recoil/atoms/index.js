@@ -1,9 +1,9 @@
 import loadingState from './LoadingAtom'
-import {usersState, userState} from './UserAtom'
+import {userListState, userState} from './UserAtom'
 
 export {
     loadingState,
     userState,
-    usersState
+    userListState
 }
 

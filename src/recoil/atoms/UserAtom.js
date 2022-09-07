@@ -1,11 +1,18 @@
-const { atom } = require("recoil");
+import {atom} from 'recoil'
+import {localStorageEffect} from '../recoil-persist'
 
 export const userState = atom({
-    key: 'userState',
-    default: {}
+    key: 'User',
+    default: {},
+    effects: [
+        localStorageEffect('User'),
+    ]
 });
 
-export const usersState = atom({
-    key: 'usersState',
-    default: []
+export const userListState = atom({
+    key: 'UserList',
+    default: [],
+    effects: [
+        localStorageEffect('UserList'),
+    ]
 });

@@ -8,6 +8,7 @@ const AppShell = ({ children }) => {
             <section className="relative w-full bg-white">
                 <Navbar />
             </section>
+            
             {children}
             <Footer />
         </>

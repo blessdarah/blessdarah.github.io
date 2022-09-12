@@ -10,6 +10,9 @@ import AppShell from './layout/AppShell'
 import DashboardContainer from './layout/DashboardContainer'
 import ServiceCard from './ServiceCard'
 import PaymentCards from './dashboard/Payment'
+import DashboardTabs from './dashboard/DashboardTabs'
+import PaymentsTable from './dashboard/PaymentsTable'
+import RequestPayment from './dashboard/RequestPayment'
 
 export {
     /* Lyout components */
@@ -18,6 +21,9 @@ export {
 
     /* Dashboard components */
     PaymentCards,
+    DashboardTabs,
+    PaymentsTable,
+    RequestPayment,
 
     /* Common components */
     NavLinks,

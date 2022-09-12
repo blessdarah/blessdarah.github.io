@@ -1,5 +1,6 @@
 import React from "react";
 import { AppShell } from "../components"
+import { ROUTES } from "../routes";
 
 const BootcampPage = () => {
     return (
@@ -39,7 +40,7 @@ const BootcampPage = () => {
                                 <span>Anyone looking for mentorship and wants a community of like-minded learners who will help in learning together and keeping each other accountable</span>
                             </li>
                         </ol>
-                        <a href="#_" className="w-full px-6 py-3 text-sm font-medium text-center text-white bg-indigo-600 rounded lg:w-auto">Join the program</a>
+                        <a href={ROUTES.SIGN_UP} className="w-full px-6 py-3 text-sm font-medium text-center text-white bg-indigo-600 rounded lg:w-auto">Join the program</a>
                     </div>
                     <div className="relative flex items-center justify-center w-full lg:w-7/12">
                         <img src="https://cdn.devdojo.com/images/october2021/tails-laptop-screen.png" className="transform lg:scale-125 lg:ml-12" />

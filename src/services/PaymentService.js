@@ -1,6 +1,4 @@
-const paymentUrl = 'https://mesomb.hachther.com/api/v1.0/payment/online';
 const url = 'http://rafineg.herokuapp.com/api/collect/bootcamp';
-import axios from "axios";
 
 export const paymentService = {
     collect: async (info) => {
@@ -15,15 +13,6 @@ export const paymentService = {
         };
         const res = await fetch(url, requestOptions);
         const data = await res.json();
-
-        // const result = fetch(url, requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         console.log('data: ', data);
-        //         return data;
-        //     })
-        //     .catch(error => console.log('error', error));
-        console.log("result: ", data);
         return data;
     },
 }

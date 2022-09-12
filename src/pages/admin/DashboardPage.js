@@ -1,18 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import { DashboardContainer, PaymentCards } from '../../components';
-import { Tab } from '@headlessui/react';
-import { useRecoilState } from 'recoil';
-import { userState } from '../../recoil/atoms';
+import { DashboardContainer, DashboardTabs, RequestPayment } from '../../components';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { paymentsAtom, userState } from '../../recoil/atoms';
 import { supabase } from '../../supabaseClient';
 import { ROUTES } from '../../routes';
 import { useNavigate } from 'react-router';
-import { useModalContext } from '../../contexts/ModalProvider';
 
 const DashboardPage = () => {
     const [user, setUser] = useRecoilState(userState);
-    const { setShowModal, setModalContent } = useModalContext();
+    const setPayments = useSetRecoilState(paymentsAtom)
     const navigate = useNavigate();
+
     const getUserData = useCallback(async () => {
         const { data, error } = await supabase.from('user_data').select().match({ code: user.id });
         if (error) {
@@ -20,12 +18,11 @@ const DashboardPage = () => {
             navigate(ROUTES.HOME);
         }
         if (data) {
-            console.log('test data', data);
-            const match = data.find(item => item.code = user.id);
             setUser({
                 ...user,
-                firstName: match?.firstName,
-                lastName: match?.lastName
+                firstName: data?.firstName,
+                lastName: data?.lastName,
+                hasPayed: true
             });
             console.log('user: ', user);
         }
@@ -40,13 +37,24 @@ const DashboardPage = () => {
         navigate(ROUTES.HOME);
     });
 
-    const loadModal = () => {
-        setModalContent(<PaymentCards />);
-        setShowModal(true);
+
+    const getUserPayments = async () => {
+        const { error, data } = await supabase.from('payments').select();
+        if (data) {
+            console.log("payments: ", data);
+            setPayments(data);
+        }
+        if (error) {
+            console.log("payments error: ", error);
+        }
     }
 
     useEffect(() => {
+        if (!user) {
+            navigate(ROUTES.LOGIN)
+        }
         getUserData();
+        getUserPayments();
     }, []);
 
     return (
@@ -56,38 +64,13 @@ const DashboardPage = () => {
                     <span>Hello <span>{user.email}</span></span>
                     <button onClick={logout} className='px-3 py-2 rounded outline-none bg-indigo-500 text-white text-center text-sm'>logout</button>
                 </h3>
+            </div>
 
-                <button onClick={loadModal} className='px-3 py-2 rounded outline-none bg-indigo-500 text-white text-center text-sm'>pay now</button>
-            </div>
-            <div>
-                <a href="https://s.htr.cm/j142" target="_blank">Pay now</a>
-            </div>
-            <section className='w-full max-w-7xl mx-auto'>
-                <Tab.Group>
-                    <Tab.List>
-                        <Tab className={({ selected }) => `px-3 py-2 border-b border-b-2 ${selected ? 'border-indigo-500' : 'border-transparent'}`}>
-                            <i className='bx bx-note'></i>
-                            Notes
-                        </Tab>
-                        <Tab className={({ selected }) => `px-3 py-2 border-b border-b-2 ${selected ? 'border-indigo-500' : 'border-transparent'}`}>
-                            <i className='bx bx-note'></i>
-                            Resources
-                        </Tab>
-                        <Tab className={({ selected }) => `px-3 py-2 border-b border-b-2 ${selected ? 'border-indigo-500' : 'border-transparent'}`}>
-                            Videos
-                        </Tab>
-                        <Tab className={({ selected }) => `px-3 py-2 border-b border-b-2 ${selected ? 'border-indigo-500' : 'border-transparent'}`}>
-                            Payment history
-                        </Tab>
-                    </Tab.List>
-                    <Tab.Panels className='bg-gray-50 px-4 py-3'>
-                        <Tab.Panel>notes</Tab.Panel>
-                        <Tab.Panel>resources will be here</Tab.Panel>
-                        <Tab.Panel>video links will be here</Tab.Panel>
-                        <Tab.Panel>Payment history</Tab.Panel>
-                    </Tab.Panels>
-                </Tab.Group>
-            </section>
+            {
+                user.hasPayed ?
+                    <DashboardTabs /> :
+                    <RequestPayment />
+            }
         </DashboardContainer>
     )
 }

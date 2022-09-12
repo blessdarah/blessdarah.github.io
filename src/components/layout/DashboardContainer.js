@@ -1,9 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from '@headlessui/react';
 import Footer from "../Footer"
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/atoms";
+import toast, { Toaster } from "react-hot-toast";
 
 const DashboardContainer = ({ children }) => {
+    const user = useRecoilValue(userState);
+    const navigate = useNavigate();
+
+    if (user === null) {
+        navigate(ROUTES.LOGIN);
+    }
+
+    useEffect(() => {
+        console.log('user: ', user);
+        if (user === null || user.aud !== "authenticated") {
+            navigate(ROUTES.LOGIN);
+        }
+    }, []);
+
     return (
         <>
             <section className="relative w-full bg-white">
@@ -43,6 +60,7 @@ const DashboardContainer = ({ children }) => {
             </section>
             {children}
             <Footer />
+            <Toaster />
         </>
     )
 }

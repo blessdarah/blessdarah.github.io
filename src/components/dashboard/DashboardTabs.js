@@ -27,7 +27,7 @@ const DashboardTabs = () => {
                     <Tab.Panel>resources will be here</Tab.Panel>
                     <Tab.Panel>video links will be here</Tab.Panel>
                     <Tab.Panel>
-                        <PaymentsTable/>
+                        <PaymentsTable />
                     </Tab.Panel>
                 </Tab.Panels>
             </Tab.Group>

@@ -4,7 +4,7 @@ import { Menu } from '@headlessui/react';
 import Footer from "../Footer"
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/atoms";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 const DashboardContainer = ({ children }) => {
     const user = useRecoilValue(userState);
@@ -22,11 +22,11 @@ const DashboardContainer = ({ children }) => {
     }, []);
 
     return (
-        <>
+        <div className="px-8 md:px-0">
             <section className="relative w-full bg-white">
-                <header className="flex align-center justify-between max-w-7xl mx-auto">
+                <header className="flex align-center justify-between max-w-7xl mx-auto py-2 uppercase font-semibold border-b border-gray-100">
                     <h3>Dashboard</h3>
-                    <nav>
+                    <nav className="hidden">
                         <ul className="inline-flex space-x-4 text-sm">
                             <li className="p-2 font-semibold text-gray-700 hover:text-gray-800 cursor-pointer">
                                 <Link to="#">notifications</Link>
@@ -61,7 +61,7 @@ const DashboardContainer = ({ children }) => {
             {children}
             <Footer />
             <Toaster />
-        </>
+        </div>
     )
 }
 

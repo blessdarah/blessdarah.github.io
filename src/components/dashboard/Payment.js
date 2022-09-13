@@ -1,16 +1,19 @@
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useRecoilState } from "recoil";
-import { userState } from "../../recoil/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { paymentsAtom, userState } from "../../recoil/atoms";
 import { paymentService } from "../../services"
 import { supabase } from "../../supabaseClient";
+import {TABLES} from "../../constants/tables"
+import { useModalContext } from "../../contexts/ModalProvider";
 
 const PaymentCards = () => {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useRecoilState(userState);
-
+    const setPayments = useSetRecoilState(paymentsAtom)
     const { formState: { errors }, reset, register, handleSubmit } = useForm();
+    const { setShowModal} = useModalContext();
 
     const onSubmit = useCallback(async (formData) => {
         setLoading(true);
@@ -37,12 +40,21 @@ const PaymentCards = () => {
 
                 // update user info and set payment true
                 setUser({ ...user, hasPayed: true });
+                const {data: userDataInfo, error: userDataErr} = await supabase.from(TABLES.USER_DATA).update({ hasPayed: true }).match({ code: user.id });
+                if(userDataErr) {
+                    console.log('user data error: ', userDataErr);
+                }else {
+                    console.log('user data infor: ', userDataInfo)
+                }
 
                 const { data: result, error: insertError } = await supabase.from('payments').insert(paymentsData);
+
                 if (insertError) {
                     console.log('could not process payment record');
                     console.log(insertError.message);
                 } else {
+                    // save payment data in state
+                    setPayments([paymentsData]);
                     toast.success("Payment content saved securely");
                     console.log('payment data: ', result);
                     reset();
@@ -52,6 +64,7 @@ const PaymentCards = () => {
             console.log("error", error);
         }
         setLoading(false);
+        setShowModal(false);
     }, []);
 
     return (

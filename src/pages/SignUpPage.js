@@ -7,6 +7,7 @@ import { supabase } from "../supabaseClient"
 
 const SignUpPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     /**
@@ -19,6 +20,7 @@ const SignUpPage = () => {
       
     /* @param {User} data */
     const onSubmit = async (formData) => {
+        setLoading(true);
         let { user, error } = await supabase.auth.signUp({
             email: formData.email,
             password: formData.password
@@ -37,9 +39,12 @@ const SignUpPage = () => {
             if (error) {
                 setErrorMessage(`Error: ${error.message}`);
             } else {
-                navigate(ROUTES.LOGIN);
+                setLoading(false);
+                navigate(ROUTES.LOGIN, {message: "Please confirm your email before login in"});
             }
+
         }
+        setLoading(false)
     }
 
     return (
@@ -103,7 +108,7 @@ const SignUpPage = () => {
                                                 type="password" placeholder="Enter your password" {...register('password', { required: true, minLength: 6 })} />
                                             {errors.password && <span className="block text-left mb-4 text-red-400 text-xs py-1">Your password must be at least 6 chars long</span>}
 
-                                            <button type="submit" className="w-full py-3 mb-4 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-500">Sign Up</button>
+                                            <button type="submit" className="w-full py-3 mb-4 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-500" disabled={loading}>{loading ? 'Loading' : 'Sign Up'}</button>
                                         </form>
                                         <p className="text-xs text-gray-400">
                                             <span>Already have an account? </span>

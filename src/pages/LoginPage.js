@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { AppShell } from "../components"
 import { ROUTES } from "../routes";
 import { supabase } from "../supabaseClient";
 import { loadingState, userState } from "../recoil/atoms"
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('');
-    const [appUser, setAppUser] = useRecoilState(userState);
+    const setAppUser = useSetRecoilState(userState);
+    const {message} = useParams();
     const [loading, setLoading] = useRecoilState(loadingState);
     const navigate = useNavigate();
+    
+    if(message) {
+        toast("Please confirm your email address before loggin in");
+    }
 
     const login = async (data) => {
         setLoading(true);
